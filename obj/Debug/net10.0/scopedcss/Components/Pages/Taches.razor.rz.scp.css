@@ -1,0 +1,110 @@
+.task-grid[b-h0hi5xtuc4] {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+}
+
+.card[b-h0hi5xtuc4] {
+    background: #ffffff;
+    border: 1px solid #d5d7db;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 14px rgba(20, 32, 61, 0.06);
+}
+
+.card h2[b-h0hi5xtuc4] {
+    margin-top: 0;
+    font-size: 1.2rem;
+}
+
+.form-row[b-h0hi5xtuc4] {
+    margin-bottom: 0.9rem;
+}
+
+.form-row label[b-h0hi5xtuc4] {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+}
+
+.two-col[b-h0hi5xtuc4] {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+}
+
+.actions[b-h0hi5xtuc4] {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.filters[b-h0hi5xtuc4] {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.row-actions[b-h0hi5xtuc4] {
+    display: flex;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+}
+
+.latest-task[b-h0hi5xtuc4] {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    background: #eef7ea;
+    border: 1px solid #c2dfb7;
+    border-radius: 8px;
+    padding: 0.55rem 0.7rem;
+    margin-bottom: 0.8rem;
+}
+
+.task-cards[b-h0hi5xtuc4] {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+    margin-bottom: 0.8rem;
+}
+
+.task-card-item[b-h0hi5xtuc4] {
+    border: 1px solid #dce3eb;
+    border-radius: 10px;
+    padding: 0.65rem;
+    background: #fafcff;
+}
+
+.task-card-item h3[b-h0hi5xtuc4] {
+    margin: 0 0 0.25rem;
+    font-size: 1rem;
+}
+
+.task-card-item p[b-h0hi5xtuc4] {
+    margin: 0 0 0.25rem;
+    color: #3b495a;
+}
+
+.task-card-item small[b-h0hi5xtuc4] {
+    color: #5f6d7c;
+}
+
+@media (min-width: 900px) {
+    .task-grid[b-h0hi5xtuc4] {
+        grid-template-columns: minmax(320px, 420px) 1fr;
+        align-items: start;
+    }
+
+    .two-col[b-h0hi5xtuc4] {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .filters[b-h0hi5xtuc4] {
+        grid-template-columns: 210px 1fr;
+    }
+
+    .task-cards[b-h0hi5xtuc4] {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
