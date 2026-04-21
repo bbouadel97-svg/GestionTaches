@@ -8,6 +8,8 @@
     ".NETCoreApp,Version=v10.0": {
       "GestionTaches/1.0.0": {
         "dependencies": {
+          "Microsoft.Build": "17.14.28",
+          "Microsoft.Build.Tasks.Core": "17.14.28",
           "Microsoft.EntityFrameworkCore.Design": "10.0.0-preview.4.25258.110",
           "Microsoft.EntityFrameworkCore.Sqlite": "10.0.0-preview.4.25258.110"
         },
@@ -23,24 +25,24 @@
           }
         }
       },
-      "Microsoft.Build/17.7.2": {
+      "Microsoft.Build/17.14.28": {
         "dependencies": {
-          "Microsoft.Build.Framework": "17.13.9",
-          "Microsoft.NET.StringTools": "17.13.9",
-          "System.Reflection.MetadataLoadContext": "7.0.0"
+          "Microsoft.Build.Framework": "17.14.28",
+          "Microsoft.NET.StringTools": "17.14.28",
+          "System.Reflection.MetadataLoadContext": "9.0.0"
         },
         "runtime": {
-          "lib/net7.0/Microsoft.Build.dll": {
+          "lib/net9.0/Microsoft.Build.dll": {
             "assemblyVersion": "15.1.0.0",
-            "fileVersion": "17.7.2.37605"
+            "fileVersion": "17.14.28.46601"
           }
         }
       },
-      "Microsoft.Build.Framework/17.13.9": {
+      "Microsoft.Build.Framework/17.14.28": {
         "runtime": {
           "lib/net9.0/Microsoft.Build.Framework.dll": {
             "assemblyVersion": "15.1.0.0",
-            "fileVersion": "17.13.9.7704"
+            "fileVersion": "17.14.28.46601"
           }
         }
       },
@@ -52,29 +54,28 @@
           }
         }
       },
-      "Microsoft.Build.Tasks.Core/17.7.2": {
+      "Microsoft.Build.Tasks.Core/17.14.28": {
         "dependencies": {
-          "Microsoft.Build.Framework": "17.13.9",
-          "Microsoft.Build.Utilities.Core": "17.13.9",
-          "Microsoft.NET.StringTools": "17.13.9",
-          "Microsoft.VisualStudio.Setup.Configuration.Interop": "3.2.2146"
+          "Microsoft.Build.Framework": "17.14.28",
+          "Microsoft.Build.Utilities.Core": "17.14.28",
+          "Microsoft.NET.StringTools": "17.14.28"
         },
         "runtime": {
-          "lib/net7.0/Microsoft.Build.Tasks.Core.dll": {
+          "lib/net9.0/Microsoft.Build.Tasks.Core.dll": {
             "assemblyVersion": "15.1.0.0",
-            "fileVersion": "17.7.2.37605"
+            "fileVersion": "17.14.28.46601"
           }
         }
       },
-      "Microsoft.Build.Utilities.Core/17.13.9": {
+      "Microsoft.Build.Utilities.Core/17.14.28": {
         "dependencies": {
-          "Microsoft.Build.Framework": "17.13.9",
-          "Microsoft.NET.StringTools": "17.13.9"
+          "Microsoft.Build.Framework": "17.14.28",
+          "Microsoft.NET.StringTools": "17.14.28"
         },
         "runtime": {
           "lib/net9.0/Microsoft.Build.Utilities.Core.dll": {
             "assemblyVersion": "15.1.0.0",
-            "fileVersion": "17.13.9.7704"
+            "fileVersion": "17.14.28.46601"
           }
         }
       },
@@ -292,10 +293,10 @@
       "Microsoft.CodeAnalysis.Workspaces.MSBuild/4.13.0": {
         "dependencies": {
           "Humanizer.Core": "2.14.1",
-          "Microsoft.Build": "17.7.2",
-          "Microsoft.Build.Framework": "17.13.9",
-          "Microsoft.Build.Tasks.Core": "17.7.2",
-          "Microsoft.Build.Utilities.Core": "17.13.9",
+          "Microsoft.Build": "17.14.28",
+          "Microsoft.Build.Framework": "17.14.28",
+          "Microsoft.Build.Tasks.Core": "17.14.28",
+          "Microsoft.Build.Utilities.Core": "17.14.28",
           "Microsoft.CodeAnalysis.Common": "4.13.0",
           "Microsoft.CodeAnalysis.Workspaces.Common": "4.13.0",
           "Microsoft.Extensions.DependencyInjection": "10.0.0-preview.4.25258.110",
@@ -393,9 +394,9 @@
       "Microsoft.EntityFrameworkCore.Design/10.0.0-preview.4.25258.110": {
         "dependencies": {
           "Humanizer.Core": "2.14.1",
-          "Microsoft.Build.Framework": "17.13.9",
+          "Microsoft.Build.Framework": "17.14.28",
           "Microsoft.Build.Locator": "1.7.8",
-          "Microsoft.Build.Utilities.Core": "17.13.9",
+          "Microsoft.Build.Utilities.Core": "17.14.28",
           "Microsoft.CodeAnalysis.CSharp": "4.13.0",
           "Microsoft.CodeAnalysis.CSharp.Workspaces": "4.13.0",
           "Microsoft.CodeAnalysis.Workspaces.MSBuild": "4.13.0",
@@ -564,19 +565,11 @@
           }
         }
       },
-      "Microsoft.NET.StringTools/17.13.9": {
+      "Microsoft.NET.StringTools/17.14.28": {
         "runtime": {
           "lib/net9.0/Microsoft.NET.StringTools.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "17.13.9.7704"
-          }
-        }
-      },
-      "Microsoft.VisualStudio.Setup.Configuration.Interop/3.2.2146": {
-        "runtime": {
-          "lib/netstandard2.1/Microsoft.VisualStudio.Setup.Configuration.Interop.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.2.2146.50370"
+            "fileVersion": "17.14.28.46601"
           }
         }
       },
@@ -796,11 +789,11 @@
           }
         }
       },
-      "System.Reflection.MetadataLoadContext/7.0.0": {
+      "System.Reflection.MetadataLoadContext/9.0.0": {
         "runtime": {
-          "lib/net7.0/System.Reflection.MetadataLoadContext.dll": {
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.0.22.51805"
+          "lib/net9.0/System.Reflection.MetadataLoadContext.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
           }
         }
       }
@@ -819,19 +812,19 @@
       "path": "humanizer.core/2.14.1",
       "hashPath": "humanizer.core.2.14.1.nupkg.sha512"
     },
-    "Microsoft.Build/17.7.2": {
+    "Microsoft.Build/17.14.28": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-AmWnumxsMiRycFfE3kq/XnFFTAoPpCWl3UuiKQWCa5Z0+hBKVoiydzS2iXJGd3x+jry+qaTR9GzoezjV9NFT5A==",
-      "path": "microsoft.build/17.7.2",
-      "hashPath": "microsoft.build.17.7.2.nupkg.sha512"
+      "sha512": "sha512-MmGLEsROW1C9dH/d4sOqUX0sVNs2uwTCFXRQb89+pYNWDNJE+7bTJG9kOCbHeCH252XLnP55KIaOgwSpf6J4Kw==",
+      "path": "microsoft.build/17.14.28",
+      "hashPath": "microsoft.build.17.14.28.nupkg.sha512"
     },
-    "Microsoft.Build.Framework/17.13.9": {
+    "Microsoft.Build.Framework/17.14.28": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Yc9R6+YdvB7KStBN2SiojR5bsFf+/xklQFhlgRog1wp+2V6rpfOyJftP6WdMwpvRAdy7kWSrvlrbllw62OgtlA==",
-      "path": "microsoft.build.framework/17.13.9",
-      "hashPath": "microsoft.build.framework.17.13.9.nupkg.sha512"
+      "sha512": "sha512-wRcyTzGV0LRAtFdrddtioh59Ky4/zbvyraP0cQkDzRSRkhgAQb0K88D/JNC6VHLIXanRi3mtV1jU0uQkBwmiVg==",
+      "path": "microsoft.build.framework/17.14.28",
+      "hashPath": "microsoft.build.framework.17.14.28.nupkg.sha512"
     },
     "Microsoft.Build.Locator/1.7.8": {
       "type": "package",
@@ -840,19 +833,19 @@
       "path": "microsoft.build.locator/1.7.8",
       "hashPath": "microsoft.build.locator.1.7.8.nupkg.sha512"
     },
-    "Microsoft.Build.Tasks.Core/17.7.2": {
+    "Microsoft.Build.Tasks.Core/17.14.28": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-CmI+mDQ44GWVv0mxFcGYlvek838kK3PgNvXPo/1/Q5/Tc97tajO611uZAj2wNfwJ1kjsCef2Mza4d+SVSyd3Mg==",
-      "path": "microsoft.build.tasks.core/17.7.2",
-      "hashPath": "microsoft.build.tasks.core.17.7.2.nupkg.sha512"
+      "sha512": "sha512-jk3O0tXp9QWPXhLJ7Pl8wm/eGtGgA1++vwHGWEmnwMU6eP//ghtcCUpQh9CQMwEKGDnH0aJf285V1s8yiSlKfQ==",
+      "path": "microsoft.build.tasks.core/17.14.28",
+      "hashPath": "microsoft.build.tasks.core.17.14.28.nupkg.sha512"
     },
-    "Microsoft.Build.Utilities.Core/17.13.9": {
+    "Microsoft.Build.Utilities.Core/17.14.28": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-8l/iUywD8ARu+9P5J2AUihLF2WAJRhZm3dbphKHBKZgwcJfHpfeVzIbh/4ZT7hnj5D0p6gVdoODs/X5b9aM9Qw==",
-      "path": "microsoft.build.utilities.core/17.13.9",
-      "hashPath": "microsoft.build.utilities.core.17.13.9.nupkg.sha512"
+      "sha512": "sha512-rhSdPo8QfLXXWM+rY0x0z1G4KK4ZhMoIbHROyDj8MUBFab9nvHR0NaMnjzOgXldhmD2zi2ir8d6xCatNzlhF5g==",
+      "path": "microsoft.build.utilities.core/17.14.28",
+      "hashPath": "microsoft.build.utilities.core.17.14.28.nupkg.sha512"
     },
     "Microsoft.CodeAnalysis.Common/4.13.0": {
       "type": "package",
@@ -1008,19 +1001,12 @@
       "path": "microsoft.extensions.primitives/10.0.0-preview.4.25258.110",
       "hashPath": "microsoft.extensions.primitives.10.0.0-preview.4.25258.110.nupkg.sha512"
     },
-    "Microsoft.NET.StringTools/17.13.9": {
+    "Microsoft.NET.StringTools/17.14.28": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-GjB0YvVu4gamPBYr+iKokahqZIBWds5hVNSFAYUsxk1KZLI5oubs52xmG3sMDTKy1yR7MBxBhi/k9YY6/qw53A==",
-      "path": "microsoft.net.stringtools/17.13.9",
-      "hashPath": "microsoft.net.stringtools.17.13.9.nupkg.sha512"
-    },
-    "Microsoft.VisualStudio.Setup.Configuration.Interop/3.2.2146": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-gMq8uGy8zTIp0kQGTI45buZC3JOStGJyjGD8gksskk83aQISW65IESErLE/WDT7Bdy+QWbdUi7QyO1LEzUSOFA==",
-      "path": "microsoft.visualstudio.setup.configuration.interop/3.2.2146",
-      "hashPath": "microsoft.visualstudio.setup.configuration.interop.3.2.2146.nupkg.sha512"
+      "sha512": "sha512-DMIeWDlxe0Wz0DIhJZ2FMoGQAN2yrGZOi5jjFhRYHWR5ONd0CS6IpAHlRnA7uA/5BF+BADvgsETxW2XrPiFc1A==",
+      "path": "microsoft.net.stringtools/17.14.28",
+      "hashPath": "microsoft.net.stringtools.17.14.28.nupkg.sha512"
     },
     "Mono.TextTemplating/3.0.0": {
       "type": "package",
@@ -1106,12 +1092,12 @@
       "path": "system.composition.typedparts/8.0.0",
       "hashPath": "system.composition.typedparts.8.0.0.nupkg.sha512"
     },
-    "System.Reflection.MetadataLoadContext/7.0.0": {
+    "System.Reflection.MetadataLoadContext/9.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-z9PvtMJra5hK8n+g0wmPtaG7HQRZpTmIPRw5Z0LEemlcdQMHuTD5D7OAY/fZuuz1L9db++QOcDF0gJTLpbMtZQ==",
-      "path": "system.reflection.metadataloadcontext/7.0.0",
-      "hashPath": "system.reflection.metadataloadcontext.7.0.0.nupkg.sha512"
+      "sha512": "sha512-nGdCUVhEQ9/CWYqgaibYEDwIJjokgIinQhCnpmtZfSXdMS6ysLZ8p9xvcJ8VPx6Xpv5OsLIUrho4B9FN+VV/tw==",
+      "path": "system.reflection.metadataloadcontext/9.0.0",
+      "hashPath": "system.reflection.metadataloadcontext.9.0.0.nupkg.sha512"
     }
   }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\OneDrive\\Bureau\\Mes Projets 2eme_Sem\\GestionTaches\\GestionTaches.csproj": {}
+    "c:\\Users\\User\\OneDrive\\Bureau\\Mes Projets 2eme_Sem\\GestionTaches\\GestionTaches.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\OneDrive\\Bureau\\Mes Projets 2eme_Sem\\GestionTaches\\GestionTaches.csproj": {
+    "c:\\Users\\User\\OneDrive\\Bureau\\Mes Projets 2eme_Sem\\GestionTaches\\GestionTaches.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\OneDrive\\Bureau\\Mes Projets 2eme_Sem\\GestionTaches\\GestionTaches.csproj",
+        "projectUniqueName": "c:\\Users\\User\\OneDrive\\Bureau\\Mes Projets 2eme_Sem\\GestionTaches\\GestionTaches.csproj",
         "projectName": "GestionTaches",
-        "projectPath": "C:\\Users\\User\\OneDrive\\Bureau\\Mes Projets 2eme_Sem\\GestionTaches\\GestionTaches.csproj",
+        "projectPath": "c:\\Users\\User\\OneDrive\\Bureau\\Mes Projets 2eme_Sem\\GestionTaches\\GestionTaches.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\OneDrive\\Bureau\\Mes Projets 2eme_Sem\\GestionTaches\\obj\\",
+        "outputPath": "c:\\Users\\User\\OneDrive\\Bureau\\Mes Projets 2eme_Sem\\GestionTaches\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -39,12 +39,24 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
         "net10.0-windows7.0": {
           "targetAlias": "net10.0-windows",
           "dependencies": {
+            "Microsoft.Build": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[17.14.28, )"
+            },
+            "Microsoft.Build.Tasks.Core": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[17.14.28, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -75,7 +87,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

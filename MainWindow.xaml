@@ -59,6 +59,40 @@
             <Setter Property="BorderBrush" Value="#D2DEEE" />
             <Setter Property="Padding" Value="8,6" />
         </Style>
+
+        <Style x:Key="KanbanCardBorderStyle" TargetType="Border">
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="#D8E2EE" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="Margin" Value="0,0,0,8" />
+            <Setter Property="Background" Value="#FFFFFF" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Priorite}" Value="{x:Static models:PrioriteTache.Critique}">
+                    <Setter Property="Background" Value="#FFF1F1" />
+                    <Setter Property="BorderBrush" Value="#F5BCBC" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Priorite}" Value="{x:Static models:PrioriteTache.Haute}">
+                    <Setter Property="Background" Value="#FFF8EE" />
+                    <Setter Property="BorderBrush" Value="#F0D3A6" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Priorite}" Value="{x:Static models:PrioriteTache.Basse}">
+                    <Setter Property="Background" Value="#F2FAF7" />
+                    <Setter Property="BorderBrush" Value="#CDE9DB" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <DataTemplate x:Key="KanbanCardTemplate">
+            <Border Style="{StaticResource KanbanCardBorderStyle}">
+                <StackPanel>
+                    <TextBlock Text="{Binding Titre}" FontWeight="SemiBold" Foreground="#1A3556" TextWrapping="Wrap" />
+                    <TextBlock Text="{Binding Assignee, StringFormat=Assigne: {0}}" Margin="0,6,0,0" Foreground="#425C79" />
+                    <TextBlock Text="{Binding Priorite, StringFormat=Priorite: {0}}" Foreground="#425C79" />
+                    <TextBlock Text="{Binding DateEcheance, StringFormat=Echeance: {0}}" Foreground="#425C79" />
+                </StackPanel>
+            </Border>
+        </DataTemplate>
     </Window.Resources>
 
     <Grid Margin="16">
@@ -154,32 +188,75 @@
                     </Border>
                 </UniformGrid>
 
-                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,10">
+                <WrapPanel Grid.Row="2" Margin="0,0,0,10">
                     <TextBox x:Name="RechercheTextBox" Width="220" Margin="0,0,8,0" VerticalContentAlignment="Center" TextChanged="Filtres_Changed" />
                     <ComboBox x:Name="FiltreStatutComboBox" Width="180" SelectionChanged="Filtres_Changed" />
+                    <ComboBox x:Name="FiltrePrioriteComboBox" Width="160" Margin="8,0,0,0" SelectionChanged="Filtres_Changed" />
+                    <TextBox x:Name="FiltreAssigneeTextBox" Width="180" Margin="8,0,0,0" VerticalContentAlignment="Center" TextChanged="Filtres_Changed" />
                     <TextBlock x:Name="ResultatsTextBlock" Margin="12,0,0,0" VerticalAlignment="Center" Foreground="#4D617A" FontWeight="SemiBold" />
-                </StackPanel>
+                </WrapPanel>
 
-                <DataGrid Grid.Row="3"
-                          x:Name="TachesDataGrid"
-                          AutoGenerateColumns="False"
-                          AlternationCount="2"
-                          RowBackground="#FFFFFF"
-                          AlternatingRowBackground="#F8FBFF"
-                          GridLinesVisibility="Horizontal"
-                          HorizontalGridLinesBrush="#E6EEF8"
-                          VerticalGridLinesBrush="#EEF3FA"
-                          IsReadOnly="True"
-                          SelectionMode="Single"
-                          SelectionChanged="TachesDataGrid_SelectionChanged">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Titre" Binding="{Binding Titre}" Width="2*" />
-                        <DataGridTextColumn Header="Assigne" Binding="{Binding Assignee}" Width="*" />
-                        <DataGridTextColumn Header="Priorite" Binding="{Binding Priorite}" Width="*" />
-                        <DataGridTextColumn Header="Statut" Binding="{Binding Statut}" Width="*" />
-                        <DataGridTextColumn Header="Echeance" Binding="{Binding DateEcheance}" Width="*" />
-                    </DataGrid.Columns>
-                </DataGrid>
+                <TabControl Grid.Row="3">
+                    <TabItem Header="Tableau">
+                        <DataGrid x:Name="TachesDataGrid"
+                                  AutoGenerateColumns="False"
+                                  AlternationCount="2"
+                                  RowBackground="#FFFFFF"
+                                  AlternatingRowBackground="#F8FBFF"
+                                  GridLinesVisibility="Horizontal"
+                                  HorizontalGridLinesBrush="#E6EEF8"
+                                  VerticalGridLinesBrush="#EEF3FA"
+                                  IsReadOnly="True"
+                                  SelectionMode="Single"
+                                  SelectionChanged="TachesDataGrid_SelectionChanged">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Titre" Binding="{Binding Titre}" Width="2*" />
+                                <DataGridTextColumn Header="Assigne" Binding="{Binding Assignee}" Width="*" />
+                                <DataGridTextColumn Header="Priorite" Binding="{Binding Priorite}" Width="*" />
+                                <DataGridTextColumn Header="Statut" Binding="{Binding Statut}" Width="*" />
+                                <DataGridTextColumn Header="Echeance" Binding="{Binding DateEcheance}" Width="*" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Header="Kanban">
+                        <Grid Margin="0,8,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0" Margin="0,0,8,0" Background="#F3F9FF" BorderBrush="#D7E7FA" BorderThickness="1" CornerRadius="10" Padding="8">
+                                <DockPanel>
+                                    <TextBlock DockPanel.Dock="Top" Text="A faire" FontWeight="SemiBold" Foreground="#20486E" Margin="0,0,0,8" />
+                                    <ListBox x:Name="KanbanAFaireListBox" Background="Transparent" BorderThickness="0" ItemTemplate="{StaticResource KanbanCardTemplate}" SelectionChanged="KanbanList_SelectionChanged" />
+                                </DockPanel>
+                            </Border>
+
+                            <Border Grid.Column="1" Margin="0,0,8,0" Background="#F6FCEF" BorderBrush="#D8EDC8" BorderThickness="1" CornerRadius="10" Padding="8">
+                                <DockPanel>
+                                    <TextBlock DockPanel.Dock="Top" Text="En cours" FontWeight="SemiBold" Foreground="#2E5C39" Margin="0,0,0,8" />
+                                    <ListBox x:Name="KanbanEnCoursListBox" Background="Transparent" BorderThickness="0" ItemTemplate="{StaticResource KanbanCardTemplate}" SelectionChanged="KanbanList_SelectionChanged" />
+                                </DockPanel>
+                            </Border>
+
+                            <Border Grid.Column="2" Margin="0,0,8,0" Background="#FFF8EE" BorderBrush="#F1E0C4" BorderThickness="1" CornerRadius="10" Padding="8">
+                                <DockPanel>
+                                    <TextBlock DockPanel.Dock="Top" Text="Bloquees" FontWeight="SemiBold" Foreground="#6D5128" Margin="0,0,0,8" />
+                                    <ListBox x:Name="KanbanBloqueesListBox" Background="Transparent" BorderThickness="0" ItemTemplate="{StaticResource KanbanCardTemplate}" SelectionChanged="KanbanList_SelectionChanged" />
+                                </DockPanel>
+                            </Border>
+
+                            <Border Grid.Column="3" Background="#F2FBF7" BorderBrush="#D0EBDD" BorderThickness="1" CornerRadius="10" Padding="8">
+                                <DockPanel>
+                                    <TextBlock DockPanel.Dock="Top" Text="Terminees" FontWeight="SemiBold" Foreground="#1F5E47" Margin="0,0,0,8" />
+                                    <ListBox x:Name="KanbanTermineesListBox" Background="Transparent" BorderThickness="0" ItemTemplate="{StaticResource KanbanCardTemplate}" SelectionChanged="KanbanList_SelectionChanged" />
+                                </DockPanel>
+                            </Border>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
             </Grid>
         </Border>
     </Grid>

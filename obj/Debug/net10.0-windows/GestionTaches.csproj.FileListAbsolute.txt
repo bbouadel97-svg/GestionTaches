@@ -33,7 +33,6 @@ C:\Users\User\OneDrive\Bureau\Mes Projets 2eme_Sem\GestionTaches\bin\Debug\net10
 C:\Users\User\OneDrive\Bureau\Mes Projets 2eme_Sem\GestionTaches\bin\Debug\net10.0-windows\Microsoft.Extensions.Options.dll
 C:\Users\User\OneDrive\Bureau\Mes Projets 2eme_Sem\GestionTaches\bin\Debug\net10.0-windows\Microsoft.Extensions.Primitives.dll
 C:\Users\User\OneDrive\Bureau\Mes Projets 2eme_Sem\GestionTaches\bin\Debug\net10.0-windows\Microsoft.NET.StringTools.dll
-C:\Users\User\OneDrive\Bureau\Mes Projets 2eme_Sem\GestionTaches\bin\Debug\net10.0-windows\Microsoft.VisualStudio.Setup.Configuration.Interop.dll
 C:\Users\User\OneDrive\Bureau\Mes Projets 2eme_Sem\GestionTaches\bin\Debug\net10.0-windows\Mono.TextTemplating.dll
 C:\Users\User\OneDrive\Bureau\Mes Projets 2eme_Sem\GestionTaches\bin\Debug\net10.0-windows\Newtonsoft.Json.dll
 C:\Users\User\OneDrive\Bureau\Mes Projets 2eme_Sem\GestionTaches\bin\Debug\net10.0-windows\SQLitePCLRaw.batteries_v2.dll

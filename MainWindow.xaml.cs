@@ -1,4 +1,5 @@
 using System.Windows;
+using System.Windows.Controls;
 using GestionTaches.Data;
 using GestionTaches.Models;
 using GestionTaches.Services;
@@ -13,6 +14,7 @@ public partial class MainWindow : Window
     private readonly TacheService _tacheService;
     private readonly DispatcherTimer _clockTimer = new() { Interval = TimeSpan.FromSeconds(1) };
     private List<TacheItem> _taches = [];
+    private List<TacheItem> _resultatsFiltres = [];
     private Guid? _selectedId;
 
     public MainWindow()
@@ -50,7 +52,15 @@ public partial class MainWindow : Window
             FiltreStatutComboBox.Items.Add(statut);
         }
 
+        FiltrePrioriteComboBox.Items.Add("Toutes les priorites");
+        foreach (var priorite in Enum.GetValues<PrioriteTache>())
+        {
+            FiltrePrioriteComboBox.Items.Add(priorite);
+        }
+
+        FiltreAssigneeTextBox.Text = string.Empty;
         FiltreStatutComboBox.SelectedIndex = 0;
+        FiltrePrioriteComboBox.SelectedIndex = 0;
         await RafraichirAsync();
     }
 
@@ -64,12 +74,17 @@ public partial class MainWindow : Window
     {
         var recherche = RechercheTextBox.Text?.Trim() ?? string.Empty;
         var filtre = FiltreStatutComboBox.SelectedItem;
+        var filtrePriorite = FiltrePrioriteComboBox.SelectedItem;
+        var assignee = FiltreAssigneeTextBox.Text?.Trim() ?? string.Empty;
 
         IEnumerable<TacheItem> query = _taches;
 
         if (!string.IsNullOrWhiteSpace(recherche))
         {
-            query = query.Where(t => t.Titre.Contains(recherche, StringComparison.OrdinalIgnoreCase));
+            query = query.Where(t =>
+                t.Titre.Contains(recherche, StringComparison.OrdinalIgnoreCase)
+                || t.Description.Contains(recherche, StringComparison.OrdinalIgnoreCase)
+                || t.Assignee.Contains(recherche, StringComparison.OrdinalIgnoreCase));
         }
 
         if (filtre is StatutTache statut)
@@ -77,8 +92,20 @@ public partial class MainWindow : Window
             query = query.Where(t => t.Statut == statut);
         }
 
+        if (filtrePriorite is PrioriteTache priorite)
+        {
+            query = query.Where(t => t.Priorite == priorite);
+        }
+
+        if (!string.IsNullOrWhiteSpace(assignee))
+        {
+            query = query.Where(t => t.Assignee.Contains(assignee, StringComparison.OrdinalIgnoreCase));
+        }
+
         var resultats = query.ToList();
+        _resultatsFiltres = resultats;
         TachesDataGrid.ItemsSource = resultats;
+        MettreAJourKanban();
         ResultatsTextBlock.Text = $"{resultats.Count} resultat(s)";
 
         MettreAJourIndicateurs();
@@ -160,6 +187,22 @@ public partial class MainWindow : Window
             return;
         }
 
+        RemplirFormulaire(item);
+    }
+
+    private void KanbanList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (sender is not ListBox listBox || listBox.SelectedItem is not TacheItem item)
+        {
+            return;
+        }
+
+        RemplirFormulaire(item);
+        TachesDataGrid.SelectedItem = item;
+    }
+
+    private void RemplirFormulaire(TacheItem item)
+    {
         _selectedId = item.Id;
         TitreTextBox.Text = item.Titre;
         DescriptionTextBox.Text = item.Description;
@@ -195,6 +238,14 @@ public partial class MainWindow : Window
     private void MettreAJourHorloge()
     {
         HorlogeTextBlock.Text = DateTime.Now.ToString("dddd dd MMM yyyy - HH:mm:ss");
+    }
+
+    private void MettreAJourKanban()
+    {
+        KanbanAFaireListBox.ItemsSource = _resultatsFiltres.Where(t => t.Statut == StatutTache.AFaire).ToList();
+        KanbanEnCoursListBox.ItemsSource = _resultatsFiltres.Where(t => t.Statut == StatutTache.EnCours).ToList();
+        KanbanBloqueesListBox.ItemsSource = _resultatsFiltres.Where(t => t.Statut == StatutTache.Bloquee).ToList();
+        KanbanTermineesListBox.ItemsSource = _resultatsFiltres.Where(t => t.Statut == StatutTache.Terminee).ToList();
     }
 
     protected override void OnClosed(EventArgs e)
