@@ -1,0 +1,6 @@
+bin/
+obj/
+artifacts_out/
+*.db
+*.user
+*.suo

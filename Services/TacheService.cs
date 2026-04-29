@@ -4,21 +4,31 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GestionTaches.Services;
 
-public sealed class TacheService(ApplicationDbContext dbContext)
+public sealed class TacheService(IDbContextFactory<ApplicationDbContext> dbContextFactory)
 {
     public async Task<IReadOnlyList<TacheItem>> GetAllAsync()
-        => await dbContext.Taches
+    {
+        await using var dbContext = await dbContextFactory.CreateDbContextAsync();
+
+        return await dbContext.Taches
             .OrderBy(t => t.Statut)
             .ThenByDescending(t => t.Priorite)
             .ThenBy(t => t.DateEcheance)
             .ThenBy(t => t.DateCreation)
             .ToListAsync();
+    }
 
-    public Task<TacheItem?> GetByIdAsync(Guid id)
-        => dbContext.Taches.FirstOrDefaultAsync(t => t.Id == id);
+    public async Task<TacheItem?> GetByIdAsync(Guid id)
+    {
+        await using var dbContext = await dbContextFactory.CreateDbContextAsync();
+
+        return await dbContext.Taches.FirstOrDefaultAsync(t => t.Id == id);
+    }
 
     public async Task<TacheItem> AjouterAsync(TacheItem nouvelleTache)
     {
+        await using var dbContext = await dbContextFactory.CreateDbContextAsync();
+
         var tacheAAjouter = new TacheItem
         {
             Id = Guid.NewGuid(),
@@ -38,7 +48,8 @@ public sealed class TacheService(ApplicationDbContext dbContext)
 
     public async Task<bool> ModifierAsync(TacheItem tacheMaj)
     {
-        var existante = await GetByIdAsync(tacheMaj.Id);
+        await using var dbContext = await dbContextFactory.CreateDbContextAsync();
+        var existante = await dbContext.Taches.FirstOrDefaultAsync(t => t.Id == tacheMaj.Id);
         if (existante is null)
         {
             return false;
@@ -56,7 +67,8 @@ public sealed class TacheService(ApplicationDbContext dbContext)
 
     public async Task<bool> SupprimerAsync(Guid id)
     {
-        var existante = await GetByIdAsync(id);
+        await using var dbContext = await dbContextFactory.CreateDbContextAsync();
+        var existante = await dbContext.Taches.FirstOrDefaultAsync(t => t.Id == id);
         if (existante is null)
         {
             return false;
@@ -69,7 +81,8 @@ public sealed class TacheService(ApplicationDbContext dbContext)
 
     public async Task<bool> ChangerStatutAsync(Guid id, StatutTache nouveauStatut)
     {
-        var existante = await GetByIdAsync(id);
+        await using var dbContext = await dbContextFactory.CreateDbContextAsync();
+        var existante = await dbContext.Taches.FirstOrDefaultAsync(t => t.Id == id);
         if (existante is null)
         {
             return false;
@@ -82,6 +95,11 @@ public sealed class TacheService(ApplicationDbContext dbContext)
 
     public async Task SeedDataAsync()
     {
+        await using var dbContext = await dbContextFactory.CreateDbContextAsync();
+
+        // Ensure the SQLite schema exists before executing queries.
+        await dbContext.Database.EnsureCreatedAsync();
+
         if (await dbContext.Taches.AnyAsync())
         {
             return;

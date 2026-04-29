@@ -11,6 +11,17 @@
         <SolidColorBrush x:Key="BorderBrushSoft" Color="#DCE3ED" />
         <SolidColorBrush x:Key="AccentBrush" Color="#0F766E" />
         <SolidColorBrush x:Key="AccentBrushHover" Color="#115E59" />
+        <SolidColorBrush x:Key="AccentDangerBrush" Color="#BE123C" />
+        <SolidColorBrush x:Key="AccentDangerBrushHover" Color="#9F1239" />
+        <SolidColorBrush x:Key="SubtleForegroundBrush" Color="#46617E" />
+
+        <Style x:Key="IconTextStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,6,0" />
+            <Setter Property="Foreground" Value="{StaticResource SubtleForegroundBrush}" />
+        </Style>
 
         <Style TargetType="TextBox">
             <Setter Property="Padding" Value="8,6" />
@@ -41,12 +52,61 @@
             <Setter Property="Padding" Value="12,8" />
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder"
+                                CornerRadius="10"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="#00000000"
+                                BorderThickness="1"
+                                SnapsToDevicePixels="True">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="8" ShadowDepth="2" Color="#220E355C" />
+                            </Border.Effect>
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="BorderBrush" Value="#40FFFFFF" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="RenderTransformOrigin" Value="0.5,0.5" />
+                                <Setter TargetName="ButtonBorder" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="0.985" ScaleY="0.985" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="ButtonBorder" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect BlurRadius="5" ShadowDepth="1" Color="#180E355C" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.6" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="{StaticResource AccentBrushHover}" />
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="False">
                     <Setter Property="Opacity" Value="0.6" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DangerButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="{StaticResource AccentDangerBrush}" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource AccentDangerBrushHover}" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -113,31 +173,67 @@
                 <DropShadowEffect BlurRadius="14" ShadowDepth="2" Color="#220A2540" />
             </Border.Effect>
             <StackPanel>
-                <TextBlock Text="Nouvelle tache" FontSize="22" FontWeight="SemiBold" Margin="0,0,0,4" Foreground="#0F2E4F" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                    <TextBlock Style="{StaticResource IconTextStyle}" Foreground="#0F2E4F" FontSize="16" Text="&#xE70F;" />
+                    <TextBlock Text="Nouvelle tache" FontSize="22" FontWeight="SemiBold" Foreground="#0F2E4F" />
+                </StackPanel>
                 <TextBlock Text="Ajoutez, modifiez et priorisez rapidement vos actions." Foreground="#4A5E77" Margin="0,0,0,14" />
 
-                <TextBlock Text="Titre" FontWeight="SemiBold" Foreground="#274666" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource IconTextStyle}" Text="&#xE8EF;" />
+                    <TextBlock Text="Titre" FontWeight="SemiBold" Foreground="#274666" />
+                </StackPanel>
                 <TextBox x:Name="TitreTextBox" Margin="0,4,0,10" />
 
-                <TextBlock Text="Description" FontWeight="SemiBold" Foreground="#274666" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource IconTextStyle}" Text="&#xE70B;" />
+                    <TextBlock Text="Description" FontWeight="SemiBold" Foreground="#274666" />
+                </StackPanel>
                 <TextBox x:Name="DescriptionTextBox" Margin="0,4,0,10" Height="90" TextWrapping="Wrap" AcceptsReturn="True" />
 
-                <TextBlock Text="Assigne a" FontWeight="SemiBold" Foreground="#274666" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource IconTextStyle}" Text="&#xE77B;" />
+                    <TextBlock Text="Assigne a" FontWeight="SemiBold" Foreground="#274666" />
+                </StackPanel>
                 <TextBox x:Name="AssigneeTextBox" Margin="0,4,0,10" />
 
-                <TextBlock Text="Priorite" FontWeight="SemiBold" Foreground="#274666" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource IconTextStyle}" Text="&#xE7BA;" />
+                    <TextBlock Text="Priorite" FontWeight="SemiBold" Foreground="#274666" />
+                </StackPanel>
                 <ComboBox x:Name="PrioriteComboBox" Margin="0,4,0,10" />
 
-                <TextBlock Text="Statut" FontWeight="SemiBold" Foreground="#274666" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource IconTextStyle}" Text="&#xE9D9;" />
+                    <TextBlock Text="Statut" FontWeight="SemiBold" Foreground="#274666" />
+                </StackPanel>
                 <ComboBox x:Name="StatutComboBox" Margin="0,4,0,10" />
 
-                <TextBlock Text="Date d'echeance" FontWeight="SemiBold" Foreground="#274666" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource IconTextStyle}" Text="&#xE823;" />
+                    <TextBlock Text="Date d'echeance" FontWeight="SemiBold" Foreground="#274666" />
+                </StackPanel>
                 <DatePicker x:Name="DateEcheancePicker" Margin="0,4,0,12" />
 
                 <StackPanel Orientation="Horizontal">
-                    <Button Content="Ajouter" Width="90" Margin="0,0,8,0" Click="Ajouter_Click" />
-                    <Button Content="Modifier" Width="90" Margin="0,0,8,0" Click="Modifier_Click" />
-                    <Button Content="Supprimer" Width="90" Click="Supprimer_Click" />
+                    <Button Width="110" Margin="0,0,8,0" Click="Ajouter_Click">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="&#xE710;" FontFamily="Segoe MDL2 Assets" Margin="0,0,6,0" VerticalAlignment="Center" />
+                            <TextBlock Text="Ajouter" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Width="115" Margin="0,0,8,0" Click="Modifier_Click">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="&#xE70F;" FontFamily="Segoe MDL2 Assets" Margin="0,0,6,0" VerticalAlignment="Center" />
+                            <TextBlock Text="Modifier" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Width="120" Style="{StaticResource DangerButtonStyle}" Click="Supprimer_Click">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="&#xE74D;" FontFamily="Segoe MDL2 Assets" Margin="0,0,6,0" VerticalAlignment="Center" />
+                            <TextBlock Text="Supprimer" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
 
                 <TextBlock x:Name="MessageTextBlock" Margin="0,12,0,0" Foreground="#0B6" FontWeight="SemiBold" />
@@ -157,32 +253,47 @@
                 </Grid.RowDefinitions>
 
                 <DockPanel>
-                    <TextBlock Text="Liste des taches" FontSize="22" FontWeight="SemiBold" Foreground="#0F2E4F" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource IconTextStyle}" Foreground="#0F2E4F" FontSize="16" Text="&#xE8FD;" />
+                        <TextBlock Text="Liste des taches" FontSize="22" FontWeight="SemiBold" Foreground="#0F2E4F" />
+                    </StackPanel>
                     <TextBlock x:Name="HorlogeTextBlock" DockPanel.Dock="Right" Foreground="#516885" FontWeight="SemiBold" VerticalAlignment="Center" />
                 </DockPanel>
 
                 <UniformGrid Grid.Row="1" Columns="4" Margin="0,10,0,10">
                     <Border Margin="0,0,8,0" Background="#F1F8FF" BorderBrush="#D7E8FC" BorderThickness="1" CornerRadius="10" Padding="10">
                         <StackPanel>
-                            <TextBlock Text="Total" Foreground="#3A5575" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource IconTextStyle}" Text="&#xE9D2;" />
+                                <TextBlock Text="Total" Foreground="#3A5575" />
+                            </StackPanel>
                             <TextBlock x:Name="TotalTextBlock" Text="0" FontSize="22" FontWeight="Bold" Foreground="#0E355C" />
                         </StackPanel>
                     </Border>
                     <Border Margin="0,0,8,0" Background="#EEFDF3" BorderBrush="#D0F2DD" BorderThickness="1" CornerRadius="10" Padding="10">
                         <StackPanel>
-                            <TextBlock Text="A faire" Foreground="#355E48" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource IconTextStyle}" Text="&#xE768;" Foreground="#355E48" />
+                                <TextBlock Text="A faire" Foreground="#355E48" />
+                            </StackPanel>
                             <TextBlock x:Name="AFaireTextBlock" Text="0" FontSize="22" FontWeight="Bold" Foreground="#1F6A46" />
                         </StackPanel>
                     </Border>
                     <Border Margin="0,0,8,0" Background="#FFF7EC" BorderBrush="#FADFB8" BorderThickness="1" CornerRadius="10" Padding="10">
                         <StackPanel>
-                            <TextBlock Text="En cours" Foreground="#70522A" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource IconTextStyle}" Text="&#xE823;" Foreground="#70522A" />
+                                <TextBlock Text="En cours" Foreground="#70522A" />
+                            </StackPanel>
                             <TextBlock x:Name="EnCoursTextBlock" Text="0" FontSize="22" FontWeight="Bold" Foreground="#9A6112" />
                         </StackPanel>
                     </Border>
                     <Border Background="#FFF0F0" BorderBrush="#F8D0D0" BorderThickness="1" CornerRadius="10" Padding="10">
                         <StackPanel>
-                            <TextBlock Text="Bloquees" Foreground="#6A3D3D" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource IconTextStyle}" Text="&#xE7BA;" Foreground="#6A3D3D" />
+                                <TextBlock Text="Bloquees" Foreground="#6A3D3D" />
+                            </StackPanel>
                             <TextBlock x:Name="BloqueesTextBlock" Text="0" FontSize="22" FontWeight="Bold" Foreground="#A43535" />
                         </StackPanel>
                     </Border>

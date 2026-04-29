@@ -19,7 +19,7 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
             entity.Property(t => t.Assignee).HasMaxLength(80);
             entity.Property(t => t.Priorite).HasConversion<string>();
             entity.Property(t => t.Statut).HasConversion<string>();
-            entity.Property(t => t.DateCreation).HasDefaultValueSql("GETUTCDATE()");
+            entity.Property(t => t.DateCreation).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
     }
 }

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:GestionTaches.Models"
+             x:Class="GestionTaches.MainPage"
+             Title="Gestion des taches">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="18" Spacing="16">
+            <Border BackgroundColor="{StaticResource SurfaceColor}" StrokeShape="RoundRectangle 20" Padding="20">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Gestion des taches" FontSize="30" FontAttributes="Bold" TextColor="{StaticResource HeadingColor}" />
+                    <Label Text="{Binding DerniereMiseAJourLabel}" TextColor="{StaticResource MutedTextColor}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Grid ColumnDefinitions="1.2*,1.8*" ColumnSpacing="16">
+                <Border Grid.Column="0" BackgroundColor="{StaticResource SurfaceColor}" StrokeShape="RoundRectangle 20" Padding="18">
+                    <VerticalStackLayout Spacing="12">
+                        <Label Text="Edition" FontSize="22" FontAttributes="Bold" TextColor="{StaticResource HeadingColor}" />
+
+                        <Label Text="Titre" FontAttributes="Bold" />
+                        <Entry Text="{Binding Titre}" Placeholder="Titre de la tache" />
+
+                        <Label Text="Description" FontAttributes="Bold" />
+                        <Editor Text="{Binding Description}" Placeholder="Description" />
+
+                        <Label Text="Assigne" FontAttributes="Bold" />
+                        <Entry Text="{Binding Assignee}" Placeholder="Nom de l'assigne" />
+
+                        <Label Text="Priorite" FontAttributes="Bold" />
+                        <Picker ItemsSource="{Binding Priorites}" SelectedItem="{Binding PrioriteSelectionnee}" />
+
+                        <Label Text="Statut" FontAttributes="Bold" />
+                        <Picker ItemsSource="{Binding Statuts}" SelectedItem="{Binding StatutSelectionne}" />
+
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                            <CheckBox IsChecked="{Binding AUneEcheance}" VerticalOptions="Center" />
+                            <VerticalStackLayout Grid.Column="1" Spacing="6">
+                                <Label Text="Date d'echeance" FontAttributes="Bold" />
+                                <DatePicker Date="{Binding DateEcheance}" IsEnabled="{Binding AUneEcheance}" />
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                            <Button Text="Ajouter" Command="{Binding AjouterCommand}" />
+                            <Button Grid.Column="1" Text="Modifier" Command="{Binding ModifierCommand}" />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                            <Button Text="Supprimer" Command="{Binding SupprimerCommand}" BackgroundColor="{StaticResource DangerColor}" />
+                            <Button Grid.Column="1" Text="Vider" Command="{Binding ViderCommand}" BackgroundColor="#D9E3F0" TextColor="#1F3552" />
+                        </Grid>
+
+                        <Label Text="{Binding Message}" TextColor="{Binding MessageColor}" FontAttributes="Bold" />
+                        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="{StaticResource PrimaryColor}" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <VerticalStackLayout Grid.Column="1" Spacing="16">
+                    <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="10">
+                        <Border BackgroundColor="{StaticResource InfoSoftColor}" StrokeShape="RoundRectangle 18" Padding="14">
+                            <VerticalStackLayout>
+                                <Label Text="Total" TextColor="{StaticResource MutedTextColor}" />
+                                <Label Text="{Binding TotalTaches}" FontSize="26" FontAttributes="Bold" TextColor="{StaticResource HeadingColor}" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <Border Grid.Column="1" BackgroundColor="{StaticResource SuccessSoftColor}" StrokeShape="RoundRectangle 18" Padding="14">
+                            <VerticalStackLayout>
+                                <Label Text="A faire" TextColor="{StaticResource MutedTextColor}" />
+                                <Label Text="{Binding TotalAFaire}" FontSize="26" FontAttributes="Bold" TextColor="#1F6A46" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <Border Grid.Column="2" BackgroundColor="{StaticResource WarningSoftColor}" StrokeShape="RoundRectangle 18" Padding="14">
+                            <VerticalStackLayout>
+                                <Label Text="En cours" TextColor="{StaticResource MutedTextColor}" />
+                                <Label Text="{Binding TotalEnCours}" FontSize="26" FontAttributes="Bold" TextColor="#9A6112" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <Border Grid.Column="3" BackgroundColor="{StaticResource DangerSoftColor}" StrokeShape="RoundRectangle 18" Padding="14">
+                            <VerticalStackLayout>
+                                <Label Text="Bloquees" TextColor="{StaticResource MutedTextColor}" />
+                                <Label Text="{Binding TotalBloquees}" FontSize="26" FontAttributes="Bold" TextColor="#A43535" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+
+                    <Border BackgroundColor="{StaticResource SurfaceColor}" StrokeShape="RoundRectangle 20" Padding="18">
+                        <VerticalStackLayout Spacing="12">
+                            <Label Text="Filtres" FontSize="22" FontAttributes="Bold" TextColor="{StaticResource HeadingColor}" />
+                            <Grid ColumnDefinitions="1.4*,1*,1*,1*" ColumnSpacing="8">
+                                <Entry Text="{Binding Recherche}" Placeholder="Recherche titre, description ou assigne" />
+                                <Picker Grid.Column="1" ItemsSource="{Binding FiltresStatut}" SelectedItem="{Binding FiltreStatutSelectionne}" />
+                                <Picker Grid.Column="2" ItemsSource="{Binding FiltresPriorite}" SelectedItem="{Binding FiltrePrioriteSelectionnee}" />
+                                <Entry Grid.Column="3" Text="{Binding FiltreAssignee}" Placeholder="Filtrer par assigne" />
+                            </Grid>
+                            <Label Text="{Binding ResultatsLabel}" TextColor="{StaticResource MutedTextColor}" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border BackgroundColor="{StaticResource SurfaceColor}" StrokeShape="RoundRectangle 20" Padding="18">
+                        <VerticalStackLayout Spacing="12">
+                            <Label Text="Vue liste" FontSize="22" FontAttributes="Bold" TextColor="{StaticResource HeadingColor}" />
+                            <Grid ColumnDefinitions="2*,1.2*,1*,1*,1*" ColumnSpacing="10" Padding="0,0,0,4">
+                                <Label Text="Titre" FontAttributes="Bold" />
+                                <Label Grid.Column="1" Text="Assigne" FontAttributes="Bold" />
+                                <Label Grid.Column="2" Text="Priorite" FontAttributes="Bold" />
+                                <Label Grid.Column="3" Text="Statut" FontAttributes="Bold" />
+                                <Label Grid.Column="4" Text="Echeance" FontAttributes="Bold" />
+                            </Grid>
+                            <CollectionView ItemsSource="{Binding TachesFiltrees}" SelectionMode="Single" SelectedItem="{Binding TacheSelectionnee, Mode=TwoWay}" HeightRequest="320">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:TacheItem">
+                                        <Border BackgroundColor="#FAFCFF" StrokeShape="RoundRectangle 14" Padding="12" Margin="0,0,0,8">
+                                            <Grid ColumnDefinitions="2*,1.2*,1*,1*,1*" ColumnSpacing="10">
+                                                <Label Text="{Binding Titre}" FontAttributes="Bold" />
+                                                <Label Grid.Column="1" Text="{Binding Assignee}" />
+                                                <Label Grid.Column="2" Text="{Binding Priorite}" />
+                                                <Label Grid.Column="3" Text="{Binding Statut}" />
+                                                <Label Grid.Column="4" Text="{Binding DateEcheance}" />
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border BackgroundColor="{StaticResource SurfaceColor}" StrokeShape="RoundRectangle 20" Padding="18">
+                        <VerticalStackLayout Spacing="12">
+                            <Label Text="Vue Kanban" FontSize="22" FontAttributes="Bold" TextColor="{StaticResource HeadingColor}" />
+                            <ScrollView Orientation="Horizontal">
+                                <Grid ColumnDefinitions="260,260,260,260" ColumnSpacing="12">
+                                    <Border BackgroundColor="#F3F9FF" StrokeShape="RoundRectangle 18" Padding="10">
+                                        <VerticalStackLayout>
+                                            <Label Text="A faire" FontAttributes="Bold" TextColor="#20486E" />
+                                            <CollectionView ItemsSource="{Binding TachesAFaire}" SelectionMode="Single" SelectedItem="{Binding TacheSelectionnee, Mode=TwoWay}" HeightRequest="280">
+                                                <CollectionView.ItemTemplate>
+                                                    <DataTemplate x:DataType="models:TacheItem">
+                                                        <Border BackgroundColor="White" StrokeShape="RoundRectangle 14" Padding="10" Margin="0,0,0,8">
+                                                            <VerticalStackLayout>
+                                                                <Label Text="{Binding Titre}" FontAttributes="Bold" />
+                                                                <Label Text="{Binding Assignee, StringFormat='Assigne: {0}'}" TextColor="{StaticResource MutedTextColor}" />
+                                                                <Label Text="{Binding Priorite, StringFormat='Priorite: {0}'}" TextColor="{StaticResource MutedTextColor}" />
+                                                            </VerticalStackLayout>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </CollectionView.ItemTemplate>
+                                            </CollectionView>
+                                        </VerticalStackLayout>
+                                    </Border>
+                                    <Border Grid.Column="1" BackgroundColor="#F6FCEF" StrokeShape="RoundRectangle 18" Padding="10">
+                                        <VerticalStackLayout>
+                                            <Label Text="En cours" FontAttributes="Bold" TextColor="#2E5C39" />
+                                            <CollectionView ItemsSource="{Binding TachesEnCours}" SelectionMode="Single" SelectedItem="{Binding TacheSelectionnee, Mode=TwoWay}" HeightRequest="280">
+                                                <CollectionView.ItemTemplate>
+                                                    <DataTemplate x:DataType="models:TacheItem">
+                                                        <Border BackgroundColor="White" StrokeShape="RoundRectangle 14" Padding="10" Margin="0,0,0,8">
+                                                            <VerticalStackLayout>
+                                                                <Label Text="{Binding Titre}" FontAttributes="Bold" />
+                                                                <Label Text="{Binding Assignee, StringFormat='Assigne: {0}'}" TextColor="{StaticResource MutedTextColor}" />
+                                                                <Label Text="{Binding Priorite, StringFormat='Priorite: {0}'}" TextColor="{StaticResource MutedTextColor}" />
+                                                            </VerticalStackLayout>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </CollectionView.ItemTemplate>
+                                            </CollectionView>
+                                        </VerticalStackLayout>
+                                    </Border>
+                                    <Border Grid.Column="2" BackgroundColor="#FFF8EE" StrokeShape="RoundRectangle 18" Padding="10">
+                                        <VerticalStackLayout>
+                                            <Label Text="Bloquees" FontAttributes="Bold" TextColor="#6D5128" />
+                                            <CollectionView ItemsSource="{Binding TachesBloquees}" SelectionMode="Single" SelectedItem="{Binding TacheSelectionnee, Mode=TwoWay}" HeightRequest="280">
+                                                <CollectionView.ItemTemplate>
+                                                    <DataTemplate x:DataType="models:TacheItem">
+                                                        <Border BackgroundColor="White" StrokeShape="RoundRectangle 14" Padding="10" Margin="0,0,0,8">
+                                                            <VerticalStackLayout>
+                                                                <Label Text="{Binding Titre}" FontAttributes="Bold" />
+                                                                <Label Text="{Binding Assignee, StringFormat='Assigne: {0}'}" TextColor="{StaticResource MutedTextColor}" />
+                                                                <Label Text="{Binding Priorite, StringFormat='Priorite: {0}'}" TextColor="{StaticResource MutedTextColor}" />
+                                                            </VerticalStackLayout>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </CollectionView.ItemTemplate>
+                                            </CollectionView>
+                                        </VerticalStackLayout>
+                                    </Border>
+                                    <Border Grid.Column="3" BackgroundColor="#F2FBF7" StrokeShape="RoundRectangle 18" Padding="10">
+                                        <VerticalStackLayout>
+                                            <Label Text="Terminees" FontAttributes="Bold" TextColor="#1F5E47" />
+                                            <CollectionView ItemsSource="{Binding TachesTerminees}" SelectionMode="Single" SelectedItem="{Binding TacheSelectionnee, Mode=TwoWay}" HeightRequest="280">
+                                                <CollectionView.ItemTemplate>
+                                                    <DataTemplate x:DataType="models:TacheItem">
+                                                        <Border BackgroundColor="White" StrokeShape="RoundRectangle 14" Padding="10" Margin="0,0,0,8">
+                                                            <VerticalStackLayout>
+                                                                <Label Text="{Binding Titre}" FontAttributes="Bold" />
+                                                                <Label Text="{Binding Assignee, StringFormat='Assigne: {0}'}" TextColor="{StaticResource MutedTextColor}" />
+                                                                <Label Text="{Binding Priorite, StringFormat='Priorite: {0}'}" TextColor="{StaticResource MutedTextColor}" />
+                                                            </VerticalStackLayout>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </CollectionView.ItemTemplate>
+                                            </CollectionView>
+                                        </VerticalStackLayout>
+                                    </Border>
+                                </Grid>
+                            </ScrollView>
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
